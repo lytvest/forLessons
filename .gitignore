@@ -1,0 +1,7 @@
+# Project exclude paths
+/out/
+
+.gradle
+.idea/
+!.idea/icon*.png
+*.iml
