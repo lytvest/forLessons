@@ -1,9 +1,17 @@
 package lesson5;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SimpleDotComTestDrive {
     public static void main(String[] args) {
         SimpleDotCom dot = new SimpleDotCom();
-        int [] location = {2, 3, 4};
+        int randomNum = (int) (Math.random() * 5);
+        ArrayList<String> location = new ArrayList<>();
+        location.add("" + randomNum);
+        location.add("" + (randomNum + 1));
+        location.add("" + (randomNum + 2));
+
         dot.setLocationCells(location);
         boolean isAlive = true;
         int numOfGuesses = 0;
@@ -13,7 +21,7 @@ public class SimpleDotComTestDrive {
             String userGuess = gm.getUserInput("Введите число :");
             String result = dot.checkYourself(userGuess);
             System.out.println(result);
-            if(result.equals("Потопил")){
+            if (result.equals("Потопил")) {
                 isAlive = false;
             }
         }
@@ -22,20 +30,19 @@ public class SimpleDotComTestDrive {
 }
 
 class SimpleDotCom {
-    int [] locations;
-    int numOfHints = 0;
-    void setLocationCells(int [] locations){
+    ArrayList<String> locations = new ArrayList<>();
+
+    void setLocationCells(ArrayList<String> locations) {
         this.locations = locations;
     }
 
-    String checkYourself(String guess){
-        for(int i: locations){
-            if (i == Integer.parseInt(guess)) {
-                numOfHints++;
-                if (numOfHints == locations.length)
+    String checkYourself(String guess) {
+        int index = locations.indexOf(guess);
+        if (index >= 0){
+            locations.remove(index);
+            if (locations.isEmpty())
                     return "Потопил";
-                return "Попал";
-            }
+            return "Попал";
         }
         return "Мимо";
     }
