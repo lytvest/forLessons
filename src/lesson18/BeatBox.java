@@ -48,6 +48,7 @@ public class BeatBox {
             timer.stop();
             drawFrame.setVisible(false);
             drawPanel.clear();
+            countCircle = 0;
         });
         buttonBox.add(stop);
 
@@ -158,6 +159,12 @@ public class BeatBox {
 
         card ++;
         card = card % 16;
+        if (card == 0){
+            this.countCircle ++;
+            if (this.loopData != 0 && this.countCircle >= this.loopData){
+                this.timer.stop();
+            }
+        }
     });
 
     static class MyJPanel extends JPanel {
@@ -194,6 +201,7 @@ public class BeatBox {
     }
 
     private int loopData = 0;
+    private int countCircle = 0;
     private void setLoop(JTextField text) {
         if (loopData == 0)
             sequencer.setLoopCount(sequencer.LOOP_CONTINUOUSLY);
